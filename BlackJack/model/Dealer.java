@@ -14,7 +14,7 @@ public class Dealer extends Player {
     public Dealer(RulesFactory a_rulesFactory) {
 
         m_newGameRule = a_rulesFactory.GetNewGameRule();
-    //        m_hitRule = a_rulesFactory.GetHitRule();
+        //        m_hitRule = a_rulesFactory.GetHitRule();
         soft17_hitRule = a_rulesFactory.GetHitRule();
     
     /*for(Card c : m_deck.GetCards()) {
@@ -47,11 +47,37 @@ public class Dealer extends Player {
     }
 
     public boolean IsDealerWinner(Player a_player) {
-        if (a_player.CalcScore() > g_maxScore) {
+        if (a_player.CalcScore() > g_maxScore) {    // dealer wins <=> Player has over 21
             return true;
-        } else if (CalcScore() > g_maxScore) {
+        } else if (CalcScore() > g_maxScore) {      // player wins <=> Dealer has over 21
             return false;
         }
+        // player == dealer => check their hands, if one of them has more (Knight,Queen,King) then wins else dealer wins
+        if (a_player.CalcScore() == CalcScore()) {
+            int countKnightQueenKingPlayer = 0;
+            for (Card c : a_player.GetHand()) {
+                if (c.GetValue() == c.GetValue().Knight ||
+                        c.GetValue() == c.GetValue().Queen ||
+                        c.GetValue() == c.GetValue().King) {
+                    countKnightQueenKingPlayer++;
+                }
+            }
+
+            int countKnightQueenKingDealer = 0;
+            for (Card c : GetHand()) {
+                if (c.GetValue() == c.GetValue().Knight ||
+                        c.GetValue() == c.GetValue().Queen ||
+                        c.GetValue() == c.GetValue().King) {
+                    countKnightQueenKingDealer++;
+                }
+            }
+            if (countKnightQueenKingPlayer > countKnightQueenKingDealer) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // dealer has more score than player
         return CalcScore() >= a_player.CalcScore();
     }
 
