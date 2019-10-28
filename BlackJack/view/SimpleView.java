@@ -1,5 +1,7 @@
 package BlackJack.view;
 
+import BlackJack.controller.Options;
+
 public class SimpleView implements IView {
 
     public void DisplayWelcomeMessage() {
@@ -10,16 +12,27 @@ public class SimpleView implements IView {
         System.out.println("Type 'p' to Play, 'h' to Hit, 's' to Stand or 'q' to Quit\n");
     }
 
-    public int GetInput() {
+    public Options GetInput() {
         try {
             int c = System.in.read();
             while (c == '\r' || c == '\n') {
                 c = System.in.read();
             }
-            return c;
+            switch (c) {
+                case 'p':
+                    return Options.Play;
+                case 'h':
+                    return Options.Hit;
+                case 's':
+                    return Options.Stand;
+                case 'q':
+                    return Options.Quite;
+                default:
+                    return Options.WrongInput;
+            }
         } catch (java.io.IOException e) {
             System.out.println("" + e);
-            return 0;
+            return Options.WrongInput;
         }
     }
 

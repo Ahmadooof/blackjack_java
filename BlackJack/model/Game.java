@@ -29,10 +29,7 @@ public class Game {
 
     public boolean Stand() {
         // TODO: Implement this according to Game_Stand.sequencediagram
-        if (this.m_dealer.stand())
-            return true;
-        else
-            return false;
+        return this.m_dealer.stand();
     }
 
     public Iterable<Card> GetDealerHand() {
