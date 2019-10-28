@@ -8,12 +8,14 @@ public class Dealer extends Player {
 
     private Deck m_deck;
     private INewGameStrategy m_newGameRule;
-    private IHitStrategy m_hitRule;
+    //    private IHitStrategy m_hitRule;
+    private IHitStrategy soft17_hitRule;
 
     public Dealer(RulesFactory a_rulesFactory) {
 
         m_newGameRule = a_rulesFactory.GetNewGameRule();
-        m_hitRule = a_rulesFactory.GetHitRule();
+    //        m_hitRule = a_rulesFactory.GetHitRule();
+        soft17_hitRule = a_rulesFactory.GetHitRule();
     
     /*for(Card c : m_deck.GetCards()) {
       c.Show(true);
@@ -54,16 +56,14 @@ public class Dealer extends Player {
     }
 
     public boolean IsGameOver() {
-        if (m_deck != null && m_hitRule.DoHit(this) != true) {
-            return true;
-        }
-        return false;
+//        return m_deck != null && m_hitRule.DoHit(this) != true;
+        return m_deck != null && !soft17_hitRule.DoHit(this);
     }
 
     public boolean stand() {
         if (this.m_deck != null) {
             ShowHand();
-            while (m_hitRule.DoHit(this)) {
+            while (soft17_hitRule.DoHit(this)) {
                 Card c = m_deck.GetCard();
                 c.Show(true);
                 DealCard(c);
