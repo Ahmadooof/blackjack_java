@@ -1,11 +1,16 @@
 package BlackJack.controller;
 
+import BlackJack.model.Card;
 import BlackJack.model.Game;
+import BlackJack.model.ICardObserver;
 import BlackJack.view.IView;
 
-public class PlayGame {
+public class PlayGame implements ICardObserver {
 
     public boolean Play(Game a_game, IView a_view) {
+
+        a_game.addSubscriber(this);
+
         a_view.DisplayWelcomeMessage();
 
         a_view.DisplayDealerHand(a_game.GetDealerHand(), a_game.GetDealerScore());
@@ -29,5 +34,10 @@ public class PlayGame {
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public void cardShow(Iterable<Card> a_hand, int a_score) {
+        System.out.println("hi");
     }
 }
