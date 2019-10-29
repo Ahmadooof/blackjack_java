@@ -7,13 +7,14 @@ public class Game {
     private Dealer m_dealer;
     private Player m_player;
     private ArrayList<ICardObserver> cardSubscribers;
+
     public Game() {
         m_dealer = new Dealer(new BlackJack.model.rules.RulesFactory());
         m_player = new Player();
         cardSubscribers = new ArrayList<ICardObserver>();
     }
 
-    public void addSubscriber(ICardObserver sub){
+    public void addSubscriber(ICardObserver sub) {
         cardSubscribers.add(sub); // forward to player and dealer
     }
 
@@ -27,9 +28,9 @@ public class Game {
     }
 
     public boolean NewGame() {
-        for(ICardObserver obs : cardSubscribers){
-            obs.cardShow(m_dealer.GetHand(),m_dealer.CalcScore());
-        }
+//        for(ICardObserver obs : cardSubscribers){
+//            obs.cardShow(m_dealer.GetHand(),m_dealer.CalcScore());
+//        }
         return m_dealer.NewGame(m_player);
     }
 

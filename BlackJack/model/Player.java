@@ -38,9 +38,9 @@ public class Player {
     }
   }
 
-    public void addSubscriber(ICardObserver sub){
-        cardSubscribers.add(sub);
-    }
+//    public void addSubscriber(ICardObserver sub){
+//        cardSubscribers.add(sub);
+//    }
   
   public int CalcScore()
   {
