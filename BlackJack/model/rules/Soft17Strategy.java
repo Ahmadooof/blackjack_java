@@ -1,5 +1,6 @@
 package BlackJack.model.rules;
 
+import BlackJack.model.Card;
 import BlackJack.model.Player;
 
 public class Soft17Strategy implements IHitStrategy {
@@ -7,6 +8,13 @@ public class Soft17Strategy implements IHitStrategy {
 
     @Override
     public boolean DoHit(Player a_dealer) {
-        return a_dealer.CalcScore() <= g_hitLimit;
+        if(a_dealer.CalcScore() == g_hitLimit){
+            for (Card card : a_dealer.GetHand()) {
+                if(card.GetValue() == Card.Value.Ace) {
+                    return true;
+                }
+            }
+        }
+        return a_dealer.CalcScore() < g_hitLimit;
     }
 }

@@ -14,7 +14,7 @@ public class Game {
     }
 
     public void addSubscriber(ICardObserver sub){
-        cardSubscribers.add(sub);
+        cardSubscribers.add(sub); // forward to player and dealer
     }
 
 

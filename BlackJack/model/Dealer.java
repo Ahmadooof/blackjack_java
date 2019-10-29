@@ -9,13 +9,13 @@ public class Dealer extends Player {
     private Deck m_deck;
     private INewGameStrategy m_newGameRule;
     //    private IHitStrategy m_hitRule;
-    private IHitStrategy soft17_hitRule;
+    private IHitStrategy m_HitRole;
 
     public Dealer(RulesFactory a_rulesFactory) {
 
         m_newGameRule = a_rulesFactory.GetNewGameRule();
         //        m_hitRule = a_rulesFactory.GetHitRule();
-        soft17_hitRule = a_rulesFactory.GetHitRule();
+        m_HitRole = a_rulesFactory.GetHitRule();
     
     /*for(Card c : m_deck.GetCards()) {
       c.Show(true);
@@ -53,6 +53,7 @@ public class Dealer extends Player {
             return false;
         }
         // player == dealer => check their hands, if one of them has more (Knight,Queen,King) then wins else dealer wins
+        // interface , strategy pattern, 2 variaters, should be same structure
         if (a_player.CalcScore() == CalcScore()) {
             int countKnightQueenKingPlayer = 0;
             for (Card c : a_player.GetHand()) {
@@ -83,13 +84,13 @@ public class Dealer extends Player {
 
     public boolean IsGameOver() {
 //        return m_deck != null && m_hitRule.DoHit(this) != true;
-        return m_deck != null && !soft17_hitRule.DoHit(this);
+        return m_deck != null && !m_HitRole.DoHit(this);
     }
 
     public boolean stand() {
         if (this.m_deck != null) {
             ShowHand();
-            while (soft17_hitRule.DoHit(this)) {
+            while (m_HitRole.DoHit(this)) {
                 Card c = m_deck.GetCard();
                 c.Show(true);
                 DealCard(c);

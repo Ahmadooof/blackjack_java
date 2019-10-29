@@ -9,7 +9,6 @@ class InternationalNewGameStrategy implements INewGameStrategy {
     public boolean NewGame(Deck a_deck, Dealer a_dealer, Player a_player) {
         AmericanNewGameStrategy american = new AmericanNewGameStrategy();
         american.gameProcess(a_deck, a_dealer, a_player);
-
         return true;
     }
 }

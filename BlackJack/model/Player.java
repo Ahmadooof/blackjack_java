@@ -37,6 +37,10 @@ public class Player {
       c.Show(true);
     }
   }
+
+    public void addSubscriber(ICardObserver sub){
+        cardSubscribers.add(sub);
+    }
   
   public int CalcScore()
   {
